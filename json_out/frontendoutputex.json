@@ -1,0 +1,64 @@
+{
+    "filename": "_.docx",
+    "instructorName": "",
+    "courseName": "",
+    "meetings": [
+        1
+    ],
+    "numCols": 3,
+    "landscape": 0,
+    "semester": "Fall 2021",
+    "content": {
+        "Date": [
+            "Tuesday, August 31",
+            "Tuesday, September 7",
+            "Tuesday, September 14",
+            "Tuesday, September 21",
+            "Tuesday, September 28",
+            "Tuesday, October 5",
+            "Tuesday, October 12",
+            "Tuesday, October 19",
+            "Tuesday, October 26",
+            "Tuesday, November 2",
+            "Tuesday, November 9",
+            "Tuesday, November 16",
+            "Tuesday, November 23",
+            "Tuesday, November 30",
+            "Tuesday, December 7"
+        ],
+        "Registrar Info": [
+            "First Day Of Classes\nLate Registration Begins\n\nLabor Day (Monday, September 6)",
+            "Waitlist Deadline\n\nWaitlists Deactivated (Wednesday, September 8)",
+            "Schedule Adjustment Deadline\n\nGraduation Application Deadline (Wednesday, September 15)",
+            "",
+            "",
+            "Internship/Independent Study/Research Deadline",
+            "",
+            "",
+            "",
+            "",
+            "Deadline To Withdraw From Individual Courses (Wednesday, November 10)",
+            "",
+            "Thanksgiving Day (Thursday, November 25)\n\nAmerican Indian Heritage Day (Friday, November 26)",
+            "",
+            "Last Day Of Classes\nDeadline For Complete Term Withdrawals (Monday, December 13)"
+        ],
+        "Common Religious Observances": [
+            "",
+            "Rosh Hashana [Judaism]\n\nRosh Hashana [Judaism] (Wednesday, September 8)\n\nGanesh Chaturthi [Hinduism] (Friday, September 10)",
+            "Yom Kippur [Judaism] (Thursday, September 16)",
+            "First and Second Days of Sukkot [Judaism]\n\nFirst and Second Days of Sukkot [Judaism] (Wednesday, September 22)",
+            "Shemini Atzeret/Simchat Torah [Judaism]",
+            "Navaratri Begins [Hinduism] (Wednesday, October 6)",
+            "Vijaya Dashami [Hinduism] (Thursday, October 14)",
+            "",
+            "",
+            "Diwali [Hinduism, Buddhism, Jainism, Sikhism] (Thursday, November 4)\n\nBirth of Bab [Bah\u00e1\u02bc\u00ed] (Saturday, November 6)\n\nBirth of Baha\u2019u\u2019llah [Bah\u00e1\u02bc\u00ed] (Sunday, November 7)",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    }
+}

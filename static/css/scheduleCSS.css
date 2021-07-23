@@ -1,0 +1,42 @@
+
+.field.grid select{
+    width: calc((100%/2) - 5px);
+}
+
+#columnOption select{
+    width: 100px;
+}
+
+#dropDown.field.grid{
+    /* Fix the darn drop down, supposed to be centered but its a bitch */
+}
+
+.formBlock .field{
+
+}
+
+.checkBoxes input{
+}
+
+.checkBoxes label{
+}
+
+.subButton {
+}
+.addTime{
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.additional{
+    display: grid;
+}
+
+.additional .addBlock{
+    display: inline;
+    padding: 10px;
+}
+
+.meet:required{
+    color: red;
+}

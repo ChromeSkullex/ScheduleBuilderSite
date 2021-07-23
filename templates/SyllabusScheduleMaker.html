@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Syllabus Schedule Builder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/scheduleCSS.css') }}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+    <div id = "mainPage">
+        <div class = "mainHeader">
+            <h2>Syllabus</h2>
+
+            <div id="MainEmpty_space"></div>
+            <div class="buttons_nav">
+                <ul>
+                    <li id = "current_pg"><a href="#">Schedule Builder</a></li>
+                    <!--
+                    <li><a href="#">Syllabus Builder</a></li>
+                    <li id = "current_pg"><a href="#">Schedule Builder</a></li>
+                    <li><a href="#">Syllabus Checker</a></li>-->
+                </ul>
+            </div>
+        </div>
+        <div id = "page">
+            <div id = "content">
+                <h1>Syllabus Schedule Builder</h1>
+                <p>Creating an automatic Schedule table for Syllabus Use</p>
+                <div id="textBoxForm">
+                    <form id = "main_form" class="form" method="post" action="/">
+                        <h2>Information</h2>
+                        <label id="smallText">
+                            <div class = "formBlock" id="buildBlock">
+                                <p class="field grid">
+                                    <label class="label">Schedule Title</label>
+                                    <input name = "filename"  value = "" class = "typeBar" type="text" id="buildTitle"  placeholder="Title"
+                                           autocomplete="off"/><br>
+                                </p>
+                                <p class="field grid" id="dropDown">
+                                        <select class = "semester" id="season" name="semester1">
+                                            <option value="Fall">Fall</option>
+                                        </select>
+                                        <select class = "semester" id="year" name="semester2" >
+                                            <option value="2021">2021</option>
+                                        </select>
+
+                                </p>
+                                <p class="field">
+                                    <label class="label">Instructor Name</label>
+                                    <input name= "instructorName" value = "" class = "typeBar" type="text" id="s_ins_name"  placeholder="Instructor Name"
+                                           autocomplete="off"/><br>
+
+                                </p>
+                                <p class="field">
+                                    <label class="label">Course Name</label>
+                                    <input name= "courseName" value = "" class = "typeBar" type="text" id="c_ins_name"  placeholder="Course Name"
+                                           autocomplete="off"/><br>
+
+                                </p>
+                            </div>
+
+
+                        </label>
+                        <!--
+                        <h2>Course Meeting Times</h2>
+                        <div class="courseTime">
+                            <div class = "timeBox">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr id = 'row_1'>
+                                        <td>
+                                            <label class="dateTime" for = "date_1">
+                                                <select id="date_1" name="extraColumns">
+                                                    <option value="0">Monday</option>
+                                                    <option value="1">Tuesday</option>
+                                                    <option value="2">Wednesday</option>
+                                                    <option value="3">Thursday</option>
+                                                    <option value="4">Friday</option>
+                                                </select>
+                                            </label>
+                                        </td>
+                                        <td><input type="time" name="start_time"/></td>
+                                        <td><input type="time" name="end_time"/></td>
+                                        <td><input type='button' class='AddNew' value='+'></td>
+
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>-->
+                        <h2>Course Meeting Days</h2>
+                            <p id="validate" style="color: #E8474C; display: none">*Check At Least One</p>
+                            <div class="checkBoxes">
+                                <input type="checkbox" class= "meet" name="meetings" id = "monday" value="0" >
+                                <label for = "monday">Monday</label>
+
+                                <input type="checkbox" class= "meet" name="meetings" id = "tuesday" value="1" >
+                                <label for = "tuesday">Tuesday</label>
+
+                                <input type="checkbox" class= "meet" name="meetings" id = "wednesday" value="2" >
+                                <label for = "wednesday">Wednesday</label>
+
+                                <input type="checkbox" class= "meet" name="meetings" id = "thursday" value="3" >
+                                <label for = "thursday">Thursday</label>
+
+                                <input type="checkbox" class= "meet" name="meetings" id = "friday" value="4" >
+                                <label for = "friday">Friday</label>
+                            </div>
+
+
+                        <h2>Additional Options</h2>
+                            <div class="additional">
+                                <div class="addBlock">
+                                    Number of Extra Columns to be Added:
+                                    <label id="columnOption">
+                                        <select id="addColumns" name="numCols">
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div class="addBlock"> Page Orientation:
+                                    <label id="pageOrientation">
+                                        <select id="orientationOptions" name="landscape">
+                                            <option value="0">Portrait</option>
+                                            <option value="1">Landscape</option>
+                                        </select>
+                                    </label>
+                                </div>
+
+                            </div>
+                        <button type="submit" class = "subButton"></button>
+
+                    </form>
+
+                    <!--<input class="subButton" id = "buildButton" type="submit" value="Submit"/>-->
+                    <!--<a href="{{url_for('.download_file')}}">Download</a>-->
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+<script type=text/javascript src="static/script/jq_main.js"></script>
+</body>
+</html>
