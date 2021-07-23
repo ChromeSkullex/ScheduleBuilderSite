@@ -63,8 +63,6 @@ def createJSON():
     req.pop("semester2")
     req.update({"filename": "%s_%s.docx" % (req["instructorName"], req["courseName"])})
     req.update(content_pop(semester, req["meetings"] ))
-    # grab from req["date"] and get the len of the list
-    # making the
     list_empty_days = []
     for i in range(len(req['content']['Date'])):
         list_empty_days.append("")
