@@ -34,20 +34,6 @@ def process():
         return jsonify({'error': 'Missing Meeting. Please Check at least one day'})
 
 
-@app.route('/download')
-def download_file():
-    # called from html
-    # call the make file `make schedule`
-    # how on earth do I call a makefile and run a separate program within flask I am stuck :(
-
-
-    # send_file
-    run_schedule()
-    createJSON()
-    print("Name File Test:")
-    return send_file("testerDoc.docx", as_attachment = True, cache_timeout=0)
-
-
 """
 NAME: createJSON()
 PARAMS: NONE
@@ -57,6 +43,7 @@ RETURN: Returns the name of the json
 def createJSON():
     # First is convertion (Combine Semester and covert to numbers)
     # This is disgusting
+    print("WHERE ARE YOU BRUH")
     req = request.form.to_dict()
     req_meetings = request.form.getlist('meetings')
     if not req_meetings:
@@ -77,8 +64,14 @@ def createJSON():
     req.update({"filename": "%s_%s.docx" % (req["instructorName"], req["courseName"])})
     req.update(content_pop(semester, req["meetings"] ))
     # grab from req["date"] and get the len of the list
-    for i in range(req["numCols"] - 3):
-        req.update["___"]
+    # making the
+    list_empty_days = []
+    for i in range(len(req['content']['Date'])):
+        list_empty_days.append("")
+    print(req['numCols'])
+    for i in range(req['numCols'] - 3):
+        temp_col = {"Blank_Col_" + str(i): list_empty_days}
+        req["content"].update(temp_col)
 
     with open(json_file_path, 'w') as jsonfile:
         json.dump(req, jsonfile, indent=4)

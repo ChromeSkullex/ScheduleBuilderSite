@@ -141,7 +141,6 @@ class MeetingSchedule:
         # key: the column label
         # value: what the user wants entered in the table
         for i, (key, value) in enumerate(content.items()):
-            print(i, key)
             table.rows[0].cells[i].text = key
             # make me a header vvv
             table.rows[0].cells[i].paragraphs[0].runs[0].bold = True
