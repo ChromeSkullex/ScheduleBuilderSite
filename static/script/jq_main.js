@@ -11,3 +11,17 @@ $(function(){
     });
 
 });
+
+$(function(){
+    $("#religionCheck").click(function(){
+        if ($(this).is(":checked")){
+            $("#mergeReligion").removeAttr("disabled")
+            $("#contentDisabled").css("color", "black")
+        }
+        else{
+            $("#mergeReligion").attr("disabled", true)
+            $("#contentDisabled").css("color", "#9e9e9e")
+
+        }
+    });
+});

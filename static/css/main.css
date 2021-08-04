@@ -216,3 +216,7 @@ select{
 .subButton:after{
     content: "Submit";
 }
+
+#contentDisabled{
+    color: #9e9e9e;
+}

@@ -71,6 +71,18 @@ def createJSON():
         temp_col = {"Blank_Col_" + str(i): list_empty_days}
         req["content"].update(temp_col)
 
+    # MergeReligion
+    if "mergeReligion" not in req:
+        req.update({"mergeReligion": False})
+    else:
+        req.update({"mergeReligion": True})
+    # includeReligion
+    if "includeReligion" not in req:
+            req.update({"includeReligion": False})
+    else:
+        req.update({"includeReligion": True})
+
+
     with open(json_file_path, 'w') as jsonfile:
         json.dump(req, jsonfile, indent=4)
 

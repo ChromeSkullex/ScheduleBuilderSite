@@ -9,9 +9,24 @@ from inspect import currentframe
 from os.path import dirname, realpath
 
 MAIN_FONT: str = "Times New Roman"
+REG_INFO_STR: str = "Registrar Info"
+REL_INFO_STR: str = "Common Religious Observances"
 
 MIN_COLS: int = 2
 MAX_COLS: int = 6
+
+# i know this is in another file dont yell at me please :(
+WEEKDAYS: List[str] = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+]
+
+# i know i need to come back and comment really badly
 
 # if the reworked holiday or other important deadline something falls on a date in the system, it goes in Due.
 # if not, it goes on the day before and states when the deadline is
@@ -19,8 +34,9 @@ MAX_COLS: int = 6
 class MeetingSchedule:
     def __init__(self, document: docx.Document = None):
         self._document: docx.Document = document
+        self._curr_week: int = 1
 
-    def build(self, json_filename: str, return_schedule: bool = True) -> str:
+    def build(self, json_filename: str, return_schedule: bool = False) -> Union[docx.Document, None]:
         print("%-25s %-30s %10s" % (__name__, currentframe().f_code.co_name, "Building meeting table..."))
 
         # retrieve json dict from frontend
@@ -44,7 +60,12 @@ class MeetingSchedule:
                 instructor=dict_from_json["instructorName"]
             )
 
-        self._gen_meet_table(content=dict_from_json["content"], num_cols=dict_from_json["numCols"])
+        self._gen_meet_table(
+            content = dict_from_json["content"],
+            dates_rel_merge = dict_from_json["mergeReligion"],
+            include_rel = dict_from_json["includeReligion"],
+            num_cols = dict_from_json["numCols"]
+        )
 
         print("%-25s %-30s %5s" % (__name__, currentframe().f_code.co_name, f"{Color.OKCYAN}Done!{Color.ENDC}"))
         if return_schedule: return self._document
@@ -104,7 +125,7 @@ class MeetingSchedule:
 
         # Set font, size, and table aesthetics
         table: docx.styles.style._TableStyle = document.styles.add_style("SYL_TABLE", docx.enum.style.WD_STYLE_TYPE.TABLE)
-        table.base_style = document.styles["Medium Grid 1"]
+        #table.base_style = document.styles["Medium Grid 1"]
         table.paragraph_format.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
         table.paragraph_format.line_spacing = 1
         table.font.name = MAIN_FONT
@@ -119,23 +140,22 @@ class MeetingSchedule:
 
         return heading
 
-    def _gen_meet_table(self, content: Dict[str, List[str]], num_cols: int = 3):
+    def _gen_meet_table(self, content: Dict[str, List[str]], dates_rel_merge: bool, include_rel: bool, num_cols: int = 3):
         print("%-25s %-30s %10s" % (__name__, currentframe().f_code.co_name, "Generating the meeting table..."))
 
         if not MIN_COLS <= num_cols <= MAX_COLS: raise ValueError(f"{Color.FAIL}Column Error.{Color.ENDC}")
         num_rows: int = len(content["Date"])
 
-        # move Registrar info and Religious Observances to the end of the dictionary
-        # so they appear as the rightmost columns in the table
-        self._reorder_content(content, "Registrar Info")
-        self._reorder_content(content, "Common Religious Observances")
-
         # generate course scheduling title
         self._gen_header("Course Schedule")
 
-        table: docx.table.Table = self._document.add_table(rows=num_rows + 1, cols=num_cols, style="Table Grid")
+        table: docx.table.Table = self._document.add_table(rows=num_rows + 1, cols=num_cols, style="Table Grid") # was SYL_TABLE
 
         print("%-25s %-30s %10s" % (__name__, currentframe().f_code.co_name, "Populating table with fields from JSON..."))
+
+        # making the cases for if a user wants to merge the religious observances
+        # column with the dates or delete them overall
+        rel: List[str] = self._del_rel(content, dates_rel_merge, include_rel)
 
         # i: column index
         # key: the column label
@@ -145,20 +165,61 @@ class MeetingSchedule:
             # make me a header vvv
             table.rows[0].cells[i].paragraphs[0].runs[0].bold = True
 
+            last_weekday: str = None
             for j in range(len(value)):
                 if key == "Date":
                     table.rows[j + 1].cells[0].text = value[j]
-                    table.rows[j + 1].cells[i].paragraphs[0].runs[0].bold = True
 
-                if key == "Registrar Info":
-                    table.rows[j + 1].cells[i].text = value[j]
+                    # include the current week of the semester and store the last
+                    # seen weekday for calculating the current week
+                    last_weekday = self._update_week(last_weekday, value[j])
+                    table.rows[j + 1].cells[0].text += "\n(Week %d)" % (self._curr_week)
 
-                if key == "Common Religious Observances":
+                    if rel and rel[j]:
+                        table.rows[j + 1].cells[0].text += "\n\n~~ Observances ~~\n"
+                        table.rows[j + 1].cells[0].paragraphs[0].add_run(rel[j])
+
+                    table.rows[j + 1].cells[0].paragraphs[0].runs[0].bold = True
+
+                # is this even needed??
+                if key in [REG_INFO_STR, REL_INFO_STR]:
                     table.rows[j + 1].cells[i].text = value[j]
 
         table.autofit = True
 
         return
+
+    def _del_rel(self, content: Dict[str, List[str]], merge: bool, include_rel: bool) -> List[str]:
+        REPLACEMENT_KEY: str = "         "
+        rel: List[str] = None
+
+        if include_rel:
+            if merge:
+                rel = content[REL_INFO_STR]
+                del content[REL_INFO_STR]
+                content[REPLACEMENT_KEY] = ["" for _ in content[REG_INFO_STR]]
+
+                self._reorder_content(content, REG_INFO_STR)
+            else:
+                self._reorder_content(content, REG_INFO_STR)
+                self._reorder_content(content, REL_INFO_STR)
+        else:
+            del content[REL_INFO_STR]
+            content[REPLACEMENT_KEY] = ["" for _ in content[REG_INFO_STR]]
+            self._reorder_content(content, REG_INFO_STR)
+
+        return rel
+
+    def _update_week(self, last_weekday: str, curr_date: str) -> str:
+        curr_weekday: str = curr_date.split(',')[0]
+
+        if last_weekday:
+            # if the current weekday index is less than or equal to the previous,
+            # then we've moved to the next week and can increment accordingly
+            if WEEKDAYS.index(curr_weekday) <= WEEKDAYS.index(last_weekday):
+                self._curr_week += 1
+
+        return curr_weekday
 
     # this just takes a desired key in a dict and puts it at the end of it
     def _reorder_content(self, content: Dict[str, List[str]], key: str) -> None:
@@ -169,4 +230,5 @@ class MeetingSchedule:
             del content[key]
 
             content[key] = info
+
         return
