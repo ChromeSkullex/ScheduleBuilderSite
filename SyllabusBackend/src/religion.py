@@ -46,7 +46,10 @@ class ReligiousObservances:
             try:
                 if td:
                     if '&' in td[1].text:
-                        for date in self._spread_observance(td[0].text.strip(), td[1].text.strip()):
+                        for date in self._spread_observance_ampersand(td[0].text.strip(), td[1].text.strip()):
+                            self._observances[date] = "%s [%s]" % (td[2].text.strip(), td[3].text.strip())
+                    elif '-' in td[1].text:
+                        for date in self._spread_observance_hyphen(td[0].text.strip(), td[1].text.strip()):
                             self._observances[date] = "%s [%s]" % (td[2].text.strip(), td[3].text.strip())
                     else:
                         date: str = "%s %s" % (td[0].text.strip(), td[1].text.strip())
@@ -54,10 +57,19 @@ class ReligiousObservances:
             except:
                 raise RelErr(f"{Color.FAIL}Failed to parse Religious information.{Color.ENDC}")
 
-    def _spread_observance(self, month: str, day: str) -> Iterator[str]:
+    def _spread_observance_ampersand(self, month: str, day: str) -> Iterator[str]:
         # i'm going to need to do some checking for if the month changes here,
         # should be easy
         yield "%s %s" % (month, day.split('&')[0])
         yield "%s %s" % (month, day.split('&')[1])
+
+        return
+
+    def _spread_observance_hyphen(self, month: str, day_range: str) -> Iterator[str]:
+        start: int = int(day_range.split('-')[0])
+        stop: int = int(day_range.split('-')[1])
+
+        for i in range(start, stop + 1):
+            yield "%s %s" % (month, i)
 
         return

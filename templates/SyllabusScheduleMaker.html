@@ -28,26 +28,19 @@
         <div id = "page">
             <div id = "content">
                 <h1>Syllabus Schedule Builder</h1>
-                <p>Creating an automatic Schedule table for Syllabus Use</p>
+                <p>Create a schedule table for your upcoming semester including academic registrar dates and religious observances. </p>
                 <div id="textBoxForm">
                     <form id = "main_form" class="form" method="post" action="/">
                         <h2>Information</h2>
                         <label id="smallText">
                             <div class = "formBlock" id="buildBlock">
-                                <p class="field grid">
-                                    <label class="label">Schedule Title</label>
-                                    <input name = "filename"  value = "" class = "typeBar" type="text" id="buildTitle"  placeholder="Title"
+                                <p class="field">
+                                    <label class="label">Course Name</label>
+                                    <input name= "courseName" value = "" class = "typeBar" type="text" id="c_ins_name"  placeholder="Course Name"
                                            autocomplete="off"/><br>
-                                </p>
-                                <p class="field grid" id="dropDown">
-                                        <select class = "semester" id="season" name="semester1">
-                                            <option value="Fall">Fall</option>
-                                        </select>
-                                        <select class = "semester" id="year" name="semester2" >
-                                            <option value="2021">2021</option>
-                                        </select>
 
                                 </p>
+
                                 <p class="field">
                                     <label class="label">Instructor Name</label>
                                     <input name= "instructorName" value = "" class = "typeBar" type="text" id="s_ins_name"  placeholder="Instructor Name"
@@ -55,11 +48,21 @@
 
                                 </p>
                                 <p class="field">
-                                    <label class="label">Course Name</label>
-                                    <input name= "courseName" value = "" class = "typeBar" type="text" id="c_ins_name"  placeholder="Course Name"
+                                    <label class="label">Schedule Title</label>
+                                    <input name = "filename"  value = "" class = "typeBar" type="text" id="buildTitle"  placeholder="Title"
                                            autocomplete="off"/><br>
+                                </p>
+                                <label class="label">Semester</label>
+                                <p class="field" id="dropDown">
+                                    <select class = "semester" id="season" name="semester1">
+                                        <option value="Fall">Fall</option>
+                                    </select>
+                                    <select class = "semester" id="year" name="semester2" >
+                                        <option value="2021">2021</option>
+                                    </select>
 
                                 </p>
+
                             </div>
 
 
@@ -122,6 +125,26 @@
                         <h2>Additional Options</h2>
                             <div class="additional">
                                 <div class="addBlock">
+                                    <div class="checkBoxes">
+                                        <label for = "religionCheck">Include Religion to Syllabus: </label>
+                                        <input type="checkbox" class= "checkReligion" name="includeReligion" id = "religionCheck" value=True checked>
+                                    </div>
+                                </div>
+                                <div class="addBlock" id = "contentDisabled">
+                                    <div class="checkBoxes">
+                                        <label for = "mergeReligion">&emsp;Merge Religion to Syllabus Weeks: </label>
+                                        <input type="checkbox" class= "mergeReligion" name="mergeReligion" id = "mergeReligion" value=True>
+                                    </div>
+                                </div>
+                                <div class="addBlock">
+                                    <div class="checkBoxes" style="color: #9e9e9e">
+                                        <label for = "academicCheck">Include Academic Calendar: </label>
+                                        <input type="checkbox" class= "checkAcademic" name="includeAcademic" id = "academicCheck" value=True disabled >
+                                    </div>
+                                </div>
+
+
+                                <div class="addBlock">
                                     Number of Extra Columns to be Added:
                                     <label id="columnOption">
                                         <select id="addColumns" name="numCols">
@@ -140,29 +163,25 @@
                                         </select>
                                     </label>
                                 </div>
-                                <div class="addBlock">
-                                    <div class="checkBoxes">
-                                        <label for = "religionCheck">Include Religion to Syllabus: </label>
-                                        <input type="checkbox" class= "checkReligion" name="includeReligion" id = "religionCheck" value=True >
-                                    </div>
-                                </div>
-                                <div class="addBlock" id = "contentDisabled">
-                                    <div class="checkBoxes">
-                                        <label for = "mergeReligion">&emsp;Merge Religion to Syllabus Weeks: </label>
-                                        <input type="checkbox" class= "mergeReligion" name="mergeReligion" id = "mergeReligion" value=True disabled>
-                                    </div>
-                                </div>
                             </div>
                         <button type="submit" class = "subButton"></button>
 
                     </form>
 
+                    <!--
+                    <footer>
+                        <p>Credit to Rice Schedule by <a href="http://wcaleb.org/">Caleb McDaniel</a></p>
+                        <p>Created by Sazhelle Gutierrez-Moulton and Drew Barlow</p>
+                    </footer>-->
 
                 </div>
 
             </div>
+
         </div>
+
     </div>
 <script type=text/javascript src="static/script/jq_main.js"></script>
+
 </body>
 </html>

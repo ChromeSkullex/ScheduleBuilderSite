@@ -142,6 +142,11 @@ body{
     width: 100%;
     display: block;
 }
+
+#dropDown select{
+    width: 175px;
+}
+
 @media screen and (min-width: 50em) {
 
     .formBlock .field.grid{
@@ -218,5 +223,5 @@ select{
 }
 
 #contentDisabled{
-    color: #9e9e9e;
+    color: black;
 }
