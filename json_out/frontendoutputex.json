@@ -1,10 +1,11 @@
 {
-    "filename": "_.docx",
-    "instructorName": "",
     "courseName": "",
+    "instructorName": "",
+    "filename": "_.docx",
     "meetings": [
         0
     ],
+    "includeReligion": true,
     "numCols": 3,
     "landscape": 0,
     "semester": "Fall 2021",
@@ -61,6 +62,5 @@
             ""
         ]
     },
-    "mergeReligion": false,
-    "includeReligion": false
+    "mergeReligion": false
 }

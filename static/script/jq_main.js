@@ -2,12 +2,20 @@ $(function(){
     console.log("Please just work")
     $(".subButton").click(function() {
         console.log("Hey ")
-        checked = $("input[type=checkbox]:checked").length;
+        console.log($('.meet:checkbox:checked').length)
+        if($(this).find('.meet:checkbox:checked').length > 0){
+            console.log("HEY HYE")
+            $("#validate").show();
+        }
+        //checkedList = $("input[type=checkbox]:checked").length;
+        /*
+        console.log(checkedList)
 
-        if(!checked) {
+        if(!checkedList) {
+            console.log("Hey 2")
             $("#validate").show();
             return false;
-        }
+        }*/
     });
 
 });
