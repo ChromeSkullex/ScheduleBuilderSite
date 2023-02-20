@@ -1,7 +1,7 @@
 from calendar import Calendar
 from .colors import Color
 from .exceptions import RegPDFErr
-from PyPDF2 import PdfFileReader
+from PyPDF2 import PdfReader
 from requests import get as req_get, models
 from typing import List, Dict, Iterator, Tuple
 
@@ -92,8 +92,8 @@ class ParseDates:
         # retrieve the text from the calendar PDF
         content = None
         with open(self._file_path, "rb") as file:
-            pdf: PdfFileReader = PdfFileReader(file)
-            content: str = pdf.getPage(0).extractText()
+            pdf: PdfReader = PdfReader(file)
+            content: str = pdf.pages[0].extract_text()
 
         content_split: List[str] = content.split('\n')
 
